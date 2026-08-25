@@ -1,13 +1,12 @@
 name: Build CookieCloud Docker Image
-#触发方式：推送到master分支、也支持网页手动点按钮运行
 on:
   push:
-    branches: [ master ]
-  workflow_dispatch: #开启【手动点击运行】按钮！非常重要
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  packages: write    #允许上传镜像到GHCR仓库
+  packages: write
 
 jobs:
   build:
@@ -26,7 +25,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ shturl.cc/bY }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lowercase repository owner name
@@ -35,11 +34,11 @@ jobs:
       - name: Build & Push Image
         uses: docker/build-push-action@v7
         with:
-          context: .
-          # ✅ 核心修复！指定docker子目录下的Dockerfile
-          file: ./docker/Dockerfile
+          # =========核心修复============
+          context: ./docker
+          file: Dockerfile
+          # =============================
           push: true
-          #镜像地址 ghcr.io/你的用户名/cookiecloud:latest
           tags: ghcr.io/5235click/cookiecloud:202608
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
