@@ -38,7 +38,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ghcr.io/${{ env.OWNER_LC }}/cookiecloud:202608
+          tags: ghcr.io/5235click/cookiecloud:202608
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
