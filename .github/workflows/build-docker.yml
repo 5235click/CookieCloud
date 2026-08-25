@@ -1,4 +1,5 @@
 name: Build CookieCloud Docker Image
+
 on:
   push:
     branches: [ main ]
@@ -13,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      - name: Set up QEMU (多架构支持 amd64/arm64)
+      - name: Set up QEMU (amd64/arm64)
         uses: docker/setup-qemu-action@v3
 
       - name: Setup Docker Buildx
@@ -25,14 +26,14 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ shturl.cc/AP }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lowercase repository owner name
         run: echo "OWNER_LC=${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
 
       - name: Build & Push Image
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./docker/Dockerfile
