@@ -25,7 +25,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ shturl.cc/bY }}
+          username: ${{ shturl.cc/UH }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Lowercase repository owner name
@@ -34,10 +34,8 @@ jobs:
       - name: Build & Push Image
         uses: docker/build-push-action@v7
         with:
-          # =========核心修复============
-          context: ./docker
-          file: Dockerfile
-          # =============================
+          context: .
+          file: ./docker/Dockerfile
           push: true
           tags: ghcr.io/5235click/cookiecloud:202608
           platforms: linux/amd64,linux/arm64
