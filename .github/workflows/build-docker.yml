@@ -36,6 +36,8 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
+          # ✅ 核心修复！指定docker子目录下的Dockerfile
+          file: ./docker/Dockerfile
           push: true
           #镜像地址 ghcr.io/你的用户名/cookiecloud:latest
           tags: ghcr.io/5235click/cookiecloud:202608
